@@ -103,3 +103,74 @@ class users:
         else:
             #print("User already exists.")
             return False
+# creating instance
+u = users()
+b = books()
+if __name__ == '__main__':
+    loop = True
+    while (loop == True): # loop forever
+        print("---Library---")
+        print("1. Read book lists from file")
+        print("2. Read user lists from file")
+        print("3. Show user lists")
+        print("4. Show book lists")
+        print("5. Borrow book")
+        print("6. Return book")
+        print("7. Show borrowed books from a user")
+        print("8. Add new book")
+        print("9. Add new user")
+        print("10. Exit")
+        userInput = list(map(int, input("\n\nYour choice: ")\
+                             .strip("\r\n").strip("\n").split()))[0]
+        # switch case
+        if userInput == 1:
+            location = input("Enter file name: ")
+            if b.readBooks(location):
+                print("Done.")
+            else:
+                print("Wrong input")
+        elif userInput == 2:
+            location = input("Enter file name: ")
+            if u.readUsers(location):
+                print("Done.")
+            else:
+                print("Wrong input")
+        elif userInput == 3:
+            u.printUsers()
+        elif userInput == 4:
+            b.printBooks()
+        elif userInput == 5:
+            u1 = input("Enter the name of user: ")
+            b1 = input("Enter the name of book: ")
+            if u.borrow(u1, b1) and b.borrow(u1, b1):
+                print("Book's available dear %s." % u1)
+                print("Your due is 2 weeks from now.")
+            else:
+                print("Sorry!")
+        elif userInput == 6:
+            u1 = input("Enter the name of user: ")
+            b1 = input("Enter the name of book: ")
+            if u.returnBook(u1, b1) and b.returnBook(u1, b1):
+                print("Thanks.")
+            else:
+                print("Sorry!")
+        elif userInput == 7:
+            u1 = input("Enter the name of user: ")
+            u.printBorrowers()
+        elif userInput == 8:
+            b1 = input("Enter the name of book: ")
+            if b.addBook(b1):
+                print("Done.")
+            else:
+                print("Sorry!")
+        elif userInput == 9:
+            u1 = input("Enter the name of user: ")
+            if u.addUser(u1):
+                print("Done.")
+            else:
+                print("Sorry!")
+        elif userInput == 10:
+            loop = False
+        else:
+            print("Try Again.")
+        input("Press Enter to continue...")
